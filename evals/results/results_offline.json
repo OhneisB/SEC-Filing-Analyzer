@@ -1,0 +1,87 @@
+{
+  "mode": "offline",
+  "timestamp": "2026-07-08T14:43:31+00:00",
+  "passed": true,
+  "total": 13,
+  "failures": 0,
+  "results": [
+    {
+      "check": "xbrl_accuracy",
+      "subject": "HealthyCo FY2023 revenue",
+      "passed": true,
+      "detail": "expected 383,285,000,000, got 383,285,000,000"
+    },
+    {
+      "check": "xbrl_accuracy",
+      "subject": "HealthyCo FY2023 net_income",
+      "passed": true,
+      "detail": "expected 96,995,000,000, got 96,995,000,000"
+    },
+    {
+      "check": "xbrl_accuracy",
+      "subject": "HealthyCo FY2023 total_assets",
+      "passed": true,
+      "detail": "expected 352,583,000,000, got 352,583,000,000"
+    },
+    {
+      "check": "xbrl_accuracy",
+      "subject": "ProblemCo FY2020 revenue",
+      "passed": true,
+      "detail": "expected 5,258,000,000, got 5,258,000,000"
+    },
+    {
+      "check": "xbrl_accuracy",
+      "subject": "ProblemCo FY2020 net_income",
+      "passed": true,
+      "detail": "expected -1,714,000,000, got -1,714,000,000"
+    },
+    {
+      "check": "risk_diff",
+      "subject": "HealthyCo 2023 vs 2022 counts",
+      "passed": true,
+      "detail": "got {'new': 1, 'modified': 1, 'unchanged': 1, 'removed': 1}"
+    },
+    {
+      "check": "risk_diff",
+      "subject": "HealthyCo new AI-regulation risk detected",
+      "passed": true,
+      "detail": "Evolving regulation of artificial intelligence may impose new obligations on our products. Governmen"
+    },
+    {
+      "check": "risk_diff",
+      "subject": "HealthyCo modified cybersecurity risk detected",
+      "passed": true,
+      "detail": "Cybersecurity incidents could disrupt our operations and harm our reputation. The Company experience"
+    },
+    {
+      "check": "risk_diff",
+      "subject": "ProblemCo new going-concern risk detected as NEW",
+      "passed": true,
+      "detail": "2 new risks"
+    },
+    {
+      "check": "red_flags",
+      "subject": "ProblemCo FY2020 raises going_concern",
+      "passed": true,
+      "detail": "flags found: ['bankruptcy', 'covenant_breach', 'going_concern']"
+    },
+    {
+      "check": "red_flags",
+      "subject": "ProblemCo FY2020 raises bankruptcy",
+      "passed": true,
+      "detail": "flags found: ['bankruptcy', 'covenant_breach', 'going_concern']"
+    },
+    {
+      "check": "red_flags",
+      "subject": "ProblemCo FY2020 raises covenant_breach",
+      "passed": true,
+      "detail": "flags found: ['bankruptcy', 'covenant_breach', 'going_concern']"
+    },
+    {
+      "check": "red_flags",
+      "subject": "HealthyCo FY2023 raises no flags",
+      "passed": true,
+      "detail": "flags found: []"
+    }
+  ]
+}

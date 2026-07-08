@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# sec-filing-analyzer: downloaded filings / caches / generated reports
+data/
+reports/

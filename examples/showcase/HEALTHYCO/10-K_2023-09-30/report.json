@@ -1,0 +1,122 @@
+{
+  "company": {
+    "ticker": "HEALTHYCO",
+    "cik": 0,
+    "name": "HealthyCo Inc. (illustrative, modeled on Apple FY2023)"
+  },
+  "filing": {
+    "form": "10-K",
+    "accession_number": "fixture-example",
+    "filing_date": "2023-09-30",
+    "report_date": "2023-09-30",
+    "primary_document": "fixture.htm"
+  },
+  "ai_used": false,
+  "summaries": [
+    {
+      "item": "1",
+      "title": "Business",
+      "summary": "Item 1. Business ExampleCo Inc. designs, manufactures and markets consumer electronics, software and related services worldwide. The Company sells its products through its retail stores, online stores and direct sales force, as well as through third-party cellular network carriers, wholesalers, retailers and resellers. The Company's fiscal year is the 52- or 53-week period that ends on the last Saturday of September.",
+      "method": "extractive"
+    },
+    {
+      "item": "1A",
+      "title": "Risk Factors",
+      "summary": "Item 1A. Risk Factors We depend on a limited number of suppliers for key components. Substantially all of the Company's hardware products are manufactured by outsourcing partners that are located primarily in Asia. A significant concentration of this manufacturing is performed by a small number of outsourcing partners, often in single locations.",
+      "method": "extractive"
+    },
+    {
+      "item": "7",
+      "title": "Management's Discussion and Analysis (MD&A)",
+      "summary": "Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations Net sales for fiscal 2023 were $383.3 billion, a decrease of 3% compared to fiscal 2022, driven by lower sales of hardware products, partially offset by growth in services. Gross margin percentage increased to 44.1% primarily due to a favorable mix shift toward services. Operating expenses grew 4% year over year, reflecting continued investment in research and development.",
+      "method": "extractive"
+    }
+  ],
+  "red_flags": [],
+  "risk_changes": [
+    {
+      "status": "unchanged",
+      "similarity": 1.0,
+      "current_excerpt": "Item 1A. Risk Factors We depend on a limited number of suppliers for key components. Substantially all of the Company's hardware products are manufactured by outsourcing partners that are located primarily in Asia. A significant concentrati…",
+      "previous_excerpt": "Item 1A. Risk Factors We depend on a limited number of suppliers for key components. Substantially all of the Company's hardware products are manufactured by outsourcing partners that are located primarily in Asia. A significant concentrati…",
+      "ai_note": ""
+    },
+    {
+      "status": "modified",
+      "similarity": 0.844,
+      "current_excerpt": "Cybersecurity incidents could disrupt our operations and harm our reputation. The Company experiences malicious attacks and other attempts to gain unauthorized access to its systems on a regular basis. These attacks seek to compromise the c…",
+      "previous_excerpt": "Cybersecurity incidents could disrupt our operations and harm our reputation. The Company experiences malicious attacks and other attempts to gain unauthorized access to its systems on a regular basis. These attacks seek to compromise the c…",
+      "ai_note": ""
+    },
+    {
+      "status": "new",
+      "similarity": 0.018,
+      "current_excerpt": "Evolving regulation of artificial intelligence may impose new obligations on our products. Governments in the United States, Europe and Asia are considering or have enacted legislation regulating the development and deployment of artificial…",
+      "previous_excerpt": "",
+      "ai_note": ""
+    },
+    {
+      "status": "removed",
+      "similarity": 0.0,
+      "current_excerpt": "",
+      "previous_excerpt": "The COVID-19 pandemic could continue to disrupt our supply chain and demand for our products. The COVID-19 pandemic has had, and could continue to have, a significant impact on the Company's operations, including temporary retail store clos…",
+      "ai_note": ""
+    }
+  ],
+  "financials": {
+    "entity": "ExampleCo Inc.",
+    "cik": 999999,
+    "form": "10-K",
+    "fiscal_year": 2023,
+    "metrics": {
+      "revenue": {
+        "value": 383285000000,
+        "concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "start": "2022-09-25",
+        "end": "2023-09-30",
+        "accession": "0000999999-23-000106",
+        "filed": "2023-11-03"
+      },
+      "net_income": {
+        "value": 96995000000,
+        "concept": "NetIncomeLoss",
+        "start": "2022-09-25",
+        "end": "2023-09-30",
+        "accession": "0000999999-23-000106",
+        "filed": "2023-11-03"
+      },
+      "eps_diluted": {
+        "value": 6.13,
+        "concept": "EarningsPerShareDiluted",
+        "start": "2022-09-25",
+        "end": "2023-09-30",
+        "accession": "0000999999-23-000106",
+        "filed": "2023-11-03"
+      },
+      "total_assets": {
+        "value": 352583000000,
+        "concept": "Assets",
+        "start": null,
+        "end": "2023-09-30",
+        "accession": "0000999999-23-000106",
+        "filed": "2023-11-03"
+      },
+      "stockholders_equity": {
+        "value": 62146000000,
+        "concept": "StockholdersEquity",
+        "start": null,
+        "end": "2023-09-30",
+        "accession": "0000999999-23-000106",
+        "filed": "2023-11-03"
+      },
+      "operating_cash_flow": {
+        "value": 110543000000,
+        "concept": "NetCashProvidedByUsedInOperatingActivities",
+        "start": "2022-09-25",
+        "end": "2023-09-30",
+        "accession": "0000999999-23-000106",
+        "filed": "2023-11-03"
+      }
+    }
+  }
+}
