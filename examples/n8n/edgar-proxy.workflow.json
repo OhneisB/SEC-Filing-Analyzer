@@ -1,0 +1,77 @@
+{
+  "name": "SEC EDGAR Proxy (example)",
+  "_comment": "SANITIZED EXAMPLE — contains no URLs, tokens or credentials. Import into your own self-hosted n8n, then set an auth token and (optionally) restrict the allowed upstream hosts. This workflow receives a target SEC URL, fetches it server-side with the SEC-mandated User-Agent, and returns the body. The analyzer calls it when SEC_BACKEND=n8n.",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "edgar-proxy",
+        "authentication": "headerAuth",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook (header auth)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [260, 300],
+      "webhookId": "REPLACE_WITH_YOUR_OWN",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL_ID",
+          "name": "EDGAR proxy auth (Authorization: Bearer <token>)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Only allow official SEC hosts — prevents the proxy being abused as an open relay.\nconst url = $input.first().json.query?.url || '';\nconst allowed = ['https://www.sec.gov/', 'https://data.sec.gov/'];\nif (!allowed.some((p) => url.startsWith(p))) {\n  throw new Error('Blocked: only sec.gov URLs are permitted');\n}\nreturn [{ json: { url } }];"
+      },
+      "id": "guard",
+      "name": "Validate target URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "response": { "response": { "responseFormat": "text" } }
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "sec-filing-analyzer-proxy/1.0 (set-your-contact@example.com)"
+            }
+          ]
+        }
+      },
+      "id": "fetch",
+      "name": "Fetch from EDGAR",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.data }}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Return body",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [920, 300]
+    }
+  ],
+  "connections": {
+    "Webhook (header auth)": { "main": [[{ "node": "Validate target URL", "type": "main", "index": 0 }]] },
+    "Validate target URL": { "main": [[{ "node": "Fetch from EDGAR", "type": "main", "index": 0 }]] },
+    "Fetch from EDGAR": { "main": [[{ "node": "Return body", "type": "main", "index": 0 }]] }
+  },
+  "settings": {},
+  "active": false
+}

@@ -9,12 +9,13 @@ Examples:
 from __future__ import annotations
 
 import logging
+import os
 import sys
 
 import click
 
 from .config import ConfigError, load_settings
-from .edgar.client import EdgarClient, EdgarError
+from .edgar.client import EdgarError, build_edgar_client
 from .pipeline import analyze_filing, parse_filing
 from .reporting.writer import write_reports
 
@@ -29,14 +30,20 @@ from .reporting.writer import write_reports
 @click.option("--diff", "diff_mode", is_flag=True,
               help="Compare the two most recent 10-Ks (risk factor diff).")
 @click.option("--no-ai", is_flag=True, help="Skip Anthropic API calls; heuristics only.")
+@click.option("--backend", type=click.Choice(["edgar", "n8n"], case_sensitive=False),
+              default=None, help="Data source: direct EDGAR (default) or a self-hosted "
+                                 "n8n proxy (env: SEC_BACKEND, N8N_WEBHOOK_URL, N8N_AUTH_TOKEN).")
 @click.option("-v", "--verbose", is_flag=True, help="Verbose logging.")
-def main(ticker: str, form: str, last: int, diff_mode: bool, no_ai: bool, verbose: bool) -> None:
+def main(ticker: str, form: str, last: int, diff_mode: bool, no_ai: bool,
+         backend: str | None, verbose: bool) -> None:
     """Analyze SEC filings of TICKER: summaries, risk diff, red flags, XBRL financials."""
     logging.basicConfig(
         level=logging.DEBUG if verbose else logging.INFO,
         format="%(levelname)s %(name)s: %(message)s",
     )
 
+    if backend:
+        os.environ["SEC_BACKEND"] = backend.lower()
     try:
         settings = load_settings()
     except ConfigError as exc:
@@ -46,7 +53,9 @@ def main(ticker: str, form: str, last: int, diff_mode: bool, no_ai: bool, verbos
     if diff_mode:
         form, last = "10-K", 2
 
-    client = EdgarClient(settings)
+    if settings.backend == "n8n":
+        click.echo("Backend: n8n proxy")
+    client = build_edgar_client(settings)
     try:
         company = client.lookup_company(ticker)
         click.echo(f"Company: {company.name} (CIK {company.cik})")

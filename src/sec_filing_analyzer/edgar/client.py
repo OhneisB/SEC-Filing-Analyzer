@@ -38,6 +38,22 @@ class EdgarError(RuntimeError):
     pass
 
 
+def build_edgar_client(settings: Settings) -> "EdgarClient":
+    """Construct an EdgarClient for the configured backend.
+
+    ``backend="edgar"`` (default) talks to SEC EDGAR directly. ``backend="n8n"``
+    routes every request through a self-hosted n8n proxy whose URL and token
+    come from the environment — useful when outbound access to sec.gov is
+    blocked. Either way the same client logic (cache, rate limit, parse) runs.
+    """
+    if settings.backend == "n8n":
+        from .n8n_backend import N8nBackendSession
+
+        session = N8nBackendSession(settings.n8n_webhook_url, settings.n8n_auth_token)
+        return EdgarClient(settings, session=session)
+    return EdgarClient(settings)
+
+
 class EdgarClient:
     def __init__(self, settings: Settings, session: requests.Session | None = None):
         self.settings = settings

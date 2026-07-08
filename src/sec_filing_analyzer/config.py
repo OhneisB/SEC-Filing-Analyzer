@@ -33,6 +33,12 @@ class Settings:
     max_requests_per_second: float = 5.0
     data_dir: Path = field(default_factory=lambda: Path("data"))
     reports_dir: Path = field(default_factory=lambda: Path("reports"))
+    # Data source backend: "edgar" (direct SEC APIs) or "n8n" (optional
+    # self-hosted proxy). The n8n endpoint + token are read from the
+    # environment only and are never stored in the repository.
+    backend: str = "edgar"
+    n8n_webhook_url: str | None = None
+    n8n_auth_token: str | None = None
 
     @property
     def ai_enabled(self) -> bool:
@@ -63,6 +69,19 @@ def load_settings(require_contact: bool = True) -> Settings:
     # The SEC allows at most 10 requests per second; clamp defensively.
     rps = min(max(rps, 0.1), 10.0)
 
+    backend = os.environ.get("SEC_BACKEND", "edgar").strip().lower()
+    if backend not in ("edgar", "n8n"):
+        raise ConfigError(f"SEC_BACKEND must be 'edgar' or 'n8n', got {backend!r}")
+
+    n8n_url = os.environ.get("N8N_WEBHOOK_URL") or None
+    n8n_token = os.environ.get("N8N_AUTH_TOKEN") or None
+    if backend == "n8n" and not (n8n_url and n8n_token):
+        raise ConfigError(
+            "SEC_BACKEND=n8n requires N8N_WEBHOOK_URL and N8N_AUTH_TOKEN. These point "
+            "at your own self-hosted n8n proxy and must be supplied via the environment "
+            "(never committed). See examples/n8n/README.md."
+        )
+
     return Settings(
         sec_user_agent=user_agent,
         anthropic_api_key=os.environ.get("ANTHROPIC_API_KEY") or None,
@@ -70,4 +89,7 @@ def load_settings(require_contact: bool = True) -> Settings:
         max_requests_per_second=rps,
         data_dir=Path(os.environ.get("SEC_DATA_DIR", "data")),
         reports_dir=Path(os.environ.get("SEC_REPORTS_DIR", "reports")),
+        backend=backend,
+        n8n_webhook_url=n8n_url,
+        n8n_auth_token=n8n_token,
     )

@@ -99,6 +99,13 @@ uv run sec-analyze AAPL --form 10-K --no-ai
 
 Reports land in `reports/<TICKER>/<FORM>_<period>/report.{md,json}`.
 
+### See it without running anything
+
+Committed example output lives in [`examples/showcase/`](examples/showcase/) —
+a clean report for a healthy large-cap and a red-flag-heavy report for a
+historical problem case — so you can see exactly what the tool produces
+without any API key or network access.
+
 Example red-flag output for a distressed filer:
 
 ```
@@ -144,6 +151,39 @@ uv run python docs/build_pdf.py     # regenerate docs/dokumentation.pdf (German)
 
 Tests never hit the network: the EDGAR client is exercised against cached
 fixture responses, matching how the GitHub Actions workflow runs.
+
+## Optional n8n backend (advanced)
+
+If outbound access to sec.gov is blocked in your environment, requests can be
+routed through your **own** self-hosted [n8n](https://n8n.io) proxy instead of
+calling EDGAR directly:
+
+```bash
+uv run sec-analyze AAPL --form 10-K --backend n8n
+# needs, in your local .env (never committed):
+#   SEC_BACKEND=n8n
+#   N8N_WEBHOOK_URL=https://your-n8n-host/webhook/edgar-proxy
+#   N8N_AUTH_TOKEN=your-long-random-secret
+```
+
+The same caching, rate-limiting and parsing logic runs over either backend.
+A sanitized example workflow and full instructions are in
+[`examples/n8n/`](examples/n8n/). This is **opt-in and illustrative**: no
+endpoint, URL or token ships in this repo, the webhook must require a Bearer
+token, and the proxy only fetches `sec.gov` URLs.
+
+## Security & scope
+
+This is a showcase / research project, not a hosted service.
+
+- **No secrets in the repo.** `ANTHROPIC_API_KEY`, `SEC_USER_AGENT` and the
+  optional n8n URL/token come exclusively from your environment (`.env`, which
+  is git-ignored). The repo ships only `.env.example` with placeholders.
+- **Bring your own keys.** There is no shared or hosted endpoint; running the
+  tool live uses *your* credentials, so no one can consume a maintainer's API
+  credits.
+- **Works fully offline.** Tests, the eval suite and the committed showcase
+  reports run without any key or network access.
 
 ## Documentation
 

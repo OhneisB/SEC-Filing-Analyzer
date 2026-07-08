@@ -1,0 +1,120 @@
+{
+  "company": {
+    "ticker": "PROBLEMCO",
+    "cik": 0,
+    "name": "ProblemCo Holdings Inc. (illustrative, modeled on Hertz FY2020)"
+  },
+  "filing": {
+    "form": "10-K",
+    "accession_number": "fixture-example",
+    "filing_date": "2020-12-31",
+    "report_date": "2020-12-31",
+    "primary_document": "fixture.htm"
+  },
+  "ai_used": false,
+  "summaries": [
+    {
+      "item": "1",
+      "title": "Business",
+      "summary": "Item 1. Business ProblemCo Holdings Inc. operates a global vehicle rental business through a network of company-operated and franchised locations in North America, Europe and other international markets. The Company rents cars, crossovers and light trucks under several brand names and also sells used vehicles through its retail sales channels.",
+      "method": "extractive"
+    },
+    {
+      "item": "1A",
+      "title": "Risk Factors",
+      "summary": "Item 1A. Risk Factors The Chapter 11 Cases raise substantial doubt about our ability to continue as a going concern. Our recurring losses from operations, the material decline in travel demand resulting from the COVID-19 pandemic and the ongoing Chapter 11 Cases raise substantial doubt about our ability to continue as a going concern. On May 22, 2020, the Company and certain of its subsidiaries filed voluntary petitions for relief under Chapter 11 of the United States Bankruptcy Code in the United States Bankruptcy Court.",
+      "method": "extractive"
+    },
+    {
+      "item": "7",
+      "title": "Management's Discussion and Analysis (MD&A)",
+      "summary": "Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations Total revenues for the year ended December 31, 2020 were $5,258 million, a decrease of 46% compared to 2019, reflecting the unprecedented decline in travel demand caused by the COVID-19 pandemic. The Company recorded a net loss of $1,714 million for the year. The commencement of the Chapter 11 Cases constituted an event of default under a number of instruments and agreements relating to the direct financial obligations of the Company.",
+      "method": "extractive"
+    }
+  ],
+  "red_flags": [
+    {
+      "flag_id": "going_concern",
+      "label": "Going-concern doubt",
+      "severity": "high",
+      "evidence": "…Item 1A. Risk Factors The Chapter 11 Cases raise substantial doubt about our ability to continue as a going concern. Our recurring losses from operations, the material decline in travel demand resulting from the COVID-19 pandemic and the ongoing Chapter 11 Cases raise substantial doubt about our abi…",
+      "source_item": "1A"
+    },
+    {
+      "flag_id": "covenant_breach",
+      "label": "Debt covenant breach / liquidity stress",
+      "severity": "medium",
+      "evidence": "…continue as a going concern is contingent upon our ability to successfully implement a plan of reorganization. We were not in compliance with certain covenants under our vehicle finance facilities. As a result of the missed rent payments under our operating lease and the sharp decline in the value…",
+      "source_item": "1A"
+    },
+    {
+      "flag_id": "bankruptcy",
+      "label": "Bankruptcy / reorganization proceedings",
+      "severity": "high",
+      "evidence": "…Item 1A. Risk Factors The Chapter 11 Cases raise substantial doubt about our ability to continue as a going concern. Our recurring losses from operations, the material decline in travel demand resulting from the COVID-19 pandemic and the ongoing Chapter 11 Cases raise substantial doubt about our abi…",
+      "source_item": "1A"
+    }
+  ],
+  "risk_changes": [
+    {
+      "status": "new",
+      "similarity": 0.063,
+      "current_excerpt": "Item 1A. Risk Factors The Chapter 11 Cases raise substantial doubt about our ability to continue as a going concern. Our recurring losses from operations, the material decline in travel demand resulting from the COVID-19 pandemic and the on…",
+      "previous_excerpt": "",
+      "ai_note": ""
+    },
+    {
+      "status": "new",
+      "similarity": 0.03,
+      "current_excerpt": "We were not in compliance with certain covenants under our vehicle finance facilities. As a result of the missed rent payments under our operating lease and the sharp decline in the value of our vehicle fleet, we were not in compliance with…",
+      "previous_excerpt": "",
+      "ai_note": ""
+    },
+    {
+      "status": "unchanged",
+      "similarity": 1.0,
+      "current_excerpt": "Competition in the vehicle rental industry could harm our results of operations. The vehicle rental industry is highly competitive, with price being one of the primary competitive factors. Any change by our major competitors in their fleet …",
+      "previous_excerpt": "Competition in the vehicle rental industry could harm our results of operations. The vehicle rental industry is highly competitive, with price being one of the primary competitive factors. Any change by our major competitors in their fleet …",
+      "ai_note": ""
+    },
+    {
+      "status": "removed",
+      "similarity": 0.0,
+      "current_excerpt": "",
+      "previous_excerpt": "Item 1A. Risk Factors We have a substantial amount of indebtedness that could adversely affect our financial condition. As of December 31, 2019 we had approximately $17 billion of total indebtedness, a substantial portion of which is secure…",
+      "ai_note": ""
+    }
+  ],
+  "financials": {
+    "entity": "ProblemCo Holdings Inc.",
+    "cik": 888888,
+    "form": "10-K",
+    "fiscal_year": 2020,
+    "metrics": {
+      "revenue": {
+        "value": 5258000000,
+        "concept": "Revenues",
+        "start": "2020-01-01",
+        "end": "2020-12-31",
+        "accession": "0000888888-21-000012",
+        "filed": "2021-02-26"
+      },
+      "net_income": {
+        "value": -1714000000,
+        "concept": "NetIncomeLoss",
+        "start": "2020-01-01",
+        "end": "2020-12-31",
+        "accession": "0000888888-21-000012",
+        "filed": "2021-02-26"
+      },
+      "total_assets": {
+        "value": 16912000000,
+        "concept": "Assets",
+        "start": null,
+        "end": "2020-12-31",
+        "accession": "0000888888-21-000012",
+        "filed": "2021-02-26"
+      }
+    }
+  }
+}
