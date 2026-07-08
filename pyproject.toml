@@ -1,0 +1,51 @@
+[project]
+name = "sec-filing-analyzer"
+version = "0.1.0"
+description = "Automated SEC filing analyzer for 10-K, 10-Q and 8-K reports: EDGAR download, section parsing, XBRL financials, AI-assisted risk diffing and red-flag detection."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+authors = [{ name = "OhneisB" }]
+keywords = ["sec", "edgar", "10-k", "xbrl", "financial-analysis", "anthropic"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = [
+    "requests>=2.31",
+    "beautifulsoup4>=4.12",
+    "lxml>=5.0",
+    "click>=8.1",
+    "anthropic>=0.40",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+docs = ["reportlab>=4.0"]
+
+[project.urls]
+Repository = "https://github.com/OhneisB/SEC-Filing-Analyzer"
+
+[project.scripts]
+sec-analyze = "sec_filing_analyzer.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "reportlab>=4.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sec_filing_analyzer"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
